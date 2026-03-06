@@ -1,8 +1,8 @@
 # -------------------------------------------------------------------------------
-# (c) Copyright 2025 Sony Semiconductor Israel, Ltd. All rights reserved.
+# (c) Copyright 2025 Sony Semiconductor Solutions, Inc. All rights reserved.
 #
 #      This software, in source or object form (the "Software"), is the
-#      property of Sony Semiconductor Israel Ltd. (the "Company") and/or its
+#      property of Sony Semiconductor Solutions Inc. (the "Company") and/or its
 #      licensors, which have all right, title and interest therein, You
 #      may use the Software only in accordance with the terms of written
 #      license agreement between you and the Company (the "License").
@@ -30,16 +30,12 @@ def get_env(name, default=None):
 dev_version = "0.0.0.dev0"
 version = get_env('EDGE_MDT_VERSION', dev_version)
 is_dev = version == dev_version or "dev" in version
-imx500_dev_def_version = "3.16.1" if is_dev else None
+imx500_dev_def_version = "3.17.3" if is_dev else None
 imx_500_converter_version = get_env('IMX500_CONVERTER_VERSION', imx500_dev_def_version)
-mct_dev_def_version = "2.3.0" if is_dev else None
+mct_dev_def_version = "2.4.5" if is_dev else None
 mct_version = get_env('MCT_VERSION', mct_dev_def_version)
-tpc_dev_def_version = "1.1.0" if is_dev else None
-tcp_version = get_env('TPC_VERSION', tpc_dev_def_version)
-custom_layers_def_version = "1.0.0" if is_dev else None
-custom_layers_version = get_env('CUSTOM_LAYERS_VERSION', custom_layers_def_version)
-is_nightly = os.environ.get("IS_NIGHTLY", "true") == "true"
-name = 'edge-mdt-nightly' if is_nightly else 'edge-mdt'
+tpc_dev_def_version = "1.2.0" if is_dev else None
+tpc_version = get_env('TPC_VERSION', tpc_dev_def_version)
 
 def get_log_description():
     with open("README.md", "r") as fh:
@@ -48,11 +44,9 @@ def get_log_description():
 
 
 setup(
-    name=name,
-    author="ssi-dnn-dev",
-    author_email="ssi-dnn-dev@sony.com",
-    maintainer="ssi-dnn-dev",
-    maintainer_email="ssi-dnn-dev@sony.com",
+    name="edge-mdt",
+    author="sss-dnn-dev",
+    maintainer="sss-dnn-dev",
     long_description=get_log_description(),
     long_description_content_type="text/markdown",
     description='Edge AI Model Development Toolkit',
@@ -60,9 +54,8 @@ setup(
     packages=find_packages(),
     license="Apache-2.0",
     install_requires=[f"model-compression-toolkit~={mct_version}",
-                      f"edge-mdt-tpc~={tcp_version}",
-                      f'imx500-converter~={imx_500_converter_version}',
-                      f'edge-mdt-cl~={custom_layers_version}'
+                      f"edge-mdt-tpc~={tpc_version}",
+                      f'imx500-converter~={imx_500_converter_version}'
                       ],
     extras_require={
         'pt': [f'imx500-converter[pt]~={imx_500_converter_version}'],
